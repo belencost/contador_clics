@@ -33,7 +33,7 @@ jobs:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       run: |
         if [ "${{ job.status }}" == "success" ]; then
-          curl -H "Content-Type: application/json" -d '{"content": "✅ **¡Éxito!** Las pruebas del Contador de Visitas pasaron correctamente. El código se está enviando a producción."}' $DISCORD_WEBHOOK
+          curl -H "Content-Type: application/json" -d '{"content": "✅ **¡Éxitooo!** Las pruebas pasaron correctamente. El código se está desplegando en producción."}' $DISCORD_WEBHOOK
         else
-          curl -H "Content-Type: application/json" -d '{"content": "❌ **¡Alerta!** Alguien rompió el código. Las pruebas de Integración Continua fallaron."}' $DISCORD_WEBHOOK
+          curl -H "Content-Type: application/json" -d '{"content": "❌ **¡Alertaaa!** Algo salió mal. Las pruebas de Integración Continua fallaron. Revisalo"}' $DISCORD_WEBHOOK
         fi
