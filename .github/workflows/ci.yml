@@ -1,13 +1,11 @@
 name: Integracion Continua (CI)
 
-# Esto le dice a GitHub que corra este script cada vez que alguien sube código a la rama principal
 on:
   push:
     branches: [ main ]
 
 jobs:
   pruebas:
-    # Esto levanta una "computadora virtual" con Linux en los servidores de GitHub
     runs-on: ubuntu-latest
 
     steps:
@@ -27,3 +25,15 @@ jobs:
     - name: Ejecutar pruebas automatizadas
       run: |
         python -m pytest
+
+    # Feedback
+    - name: Notificar a Discord
+      if: always()
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      run: |
+        if [ "${{ job.status }}" == "success" ]; then
+          curl -H "Content-Type: application/json" -d '{"content": "✅ **¡Éxito!** Las pruebas del Contador de Visitas pasaron correctamente. El código se está enviando a producción."}' $DISCORD_WEBHOOK
+        else
+          curl -H "Content-Type: application/json" -d '{"content": "❌ **¡Alerta!** Alguien rompió el código. Las pruebas de Integración Continua fallaron."}' $DISCORD_WEBHOOK
+        fi
