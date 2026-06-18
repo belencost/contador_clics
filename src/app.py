@@ -8,7 +8,7 @@ app = Flask(__name__, template_folder='../templates')
 contador = ContadorClics()
 
 # Cuando alguien entra a la ruta principal ("/"), le mostramos la página web (index.html)
-@app.route("/")
+@app.route("/", methods=["GET"])
 def index():
     return render_template("index.html")
 
