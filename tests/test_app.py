@@ -20,3 +20,14 @@ def test_api_incrementar(client):
     data = response.get_json()
     assert "total_clics" in data
     assert data["total_clics"] == 1
+
+def test_obtener_estado(client):
+    # Simulamos que un usuario entra a la ruta /estado
+    respuesta = client.get('/estado')
+    
+    # Verificamos que la página cargue bien (código HTTP 200)
+    assert respuesta.status_code == 200
+    
+    # Verificamos que el texto de respuesta tenga la palabra "total_actual"
+    datos = respuesta.get_json()
+    assert "total_actual" in datos
